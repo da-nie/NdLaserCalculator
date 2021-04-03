@@ -123,30 +123,32 @@ afx_msg BOOL CDialog_Main::OnInitDialog(void)
  ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_FLASH_C))->SetLimitText(100);
  ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_FLASH_L))->SetLimitText(100);
    
- ((CComboBox*)GetDlgItem(IDC_COMBO_MAIN_MATHERIAL))->AddString("Кристалл Nd:YAG");
- ((CComboBox*)GetDlgItem(IDC_COMBO_MAIN_MATHERIAL))->AddString("Стекло ГЛС1");
- ((CComboBox*)GetDlgItem(IDC_COMBO_MAIN_MATHERIAL))->AddString("Стекло ГЛС19");
- ((CComboBox*)GetDlgItem(IDC_COMBO_MAIN_MATHERIAL))->AddString("Стекло ЛГС61");
- ((CComboBox*)GetDlgItem(IDC_COMBO_MAIN_MATHERIAL))->AddString("Стекло ГЛС6");
- ((CComboBox*)GetDlgItem(IDC_COMBO_MAIN_MATHERIAL))->AddString("Стекло ГЛС7");
- ((CComboBox*)GetDlgItem(IDC_COMBO_MAIN_MATHERIAL))->AddString("Стекло ГЛС8");
- ((CComboBox*)GetDlgItem(IDC_COMBO_MAIN_MATHERIAL))->AddString("Стекло ЛФС4 (G=3.5E+20)");
- ((CComboBox*)GetDlgItem(IDC_COMBO_MAIN_MATHERIAL))->AddString("Стекло ЛФС4 (G=5.0E+20)");
- ((CComboBox*)GetDlgItem(IDC_COMBO_MAIN_MATHERIAL))->AddString("Стекло ЛФС4 (G=7.4E+20)");
- ((CComboBox*)GetDlgItem(IDC_COMBO_MAIN_MATHERIAL))->AddString("Стекло ЛФС5");
+ MatherialList.push_back(SMatherialParam("Кристалл Nd:YAG","8.8E-19","1.81633","5E-3","5E+19","2.5E-4","0.59"));
+ MatherialList.push_back(SMatherialParam("Стекло ГЛС1","1.7E-20","1.521","2E-3","1.9E+20","390E-6","0.78"));
+ MatherialList.push_back(SMatherialParam("Стекло ГЛС19","2.0E-20","1.528","2E-3","4.68E+20","500E-6","0.45"));
+ MatherialList.push_back(SMatherialParam("Стекло ЛГС61","2.3E-20","1.538","2E-3","1.75E+20","410E-6","0.57"));
+ MatherialList.push_back(SMatherialParam("Стекло ГЛС6","1.0E-20","1.542","2E-3","1.96E+20","600E-6","0.75"));
+ MatherialList.push_back(SMatherialParam("Стекло ГЛС7","1.1E-20","1.542","2E-3","3.05E+20","490E-6","0.61"));
+ MatherialList.push_back(SMatherialParam("Стекло ГЛС8","1.1E-20","1.548","2E-3","5.16E+20","320E-6","0.37"));
+ MatherialList.push_back(SMatherialParam("Стекло ЛФС4 (Nd=3.5E+20)","3.8E-20","1.511","2E-3","3.5E+20","270E-6","0.70"));
+ MatherialList.push_back(SMatherialParam("Стекло ЛФС4 (Nd=5.0E+20)","3.8E-20","1.511","2E-3","5.0E+20","200E-6","0.50"));
+ MatherialList.push_back(SMatherialParam("Стекло ЛФС4 (Nd=7.4E+20)","3.8E-20","1.511","2E-3","7.4E+20","170E-6","0.40"));
+ MatherialList.push_back(SMatherialParam("Стекло ЛФС5","3.8E-20","1.527","2E-3","2.0E+20","300E-6","0.70"));
+
+ MatherialList.push_back(SMatherialParam("Стекло ГЛС21","3.2E-20","1.582","2E-3","1.40E+20","280E-6","0.73"));
+ MatherialList.push_back(SMatherialParam("Стекло ГЛС22","3.2E-20","1.582","2E-3","2.0E+20","300E-6","0.74"));
+ MatherialList.push_back(SMatherialParam("Стекло ГЛС23","3.2E-20","1.582","2E-3","3.60E+20","240E-6","0.6"));
+ MatherialList.push_back(SMatherialParam("Стекло ГЛС24","3.2E-20","1.582","2E-3","5.70E+20","190E-6","0.44"));
+ MatherialList.push_back(SMatherialParam("Стекло ГЛС25","3.0E-20","1.568","2E-3","2.33E+20","250E-6","0.64"));
+ MatherialList.push_back(SMatherialParam("Стекло ГЛС26","3.0E-20","1.564","2E-3","2.30E+20","250E-6","0.64"));
+ MatherialList.push_back(SMatherialParam("Стекло ГЛС27","3.0E-20","1.568","2E-3","12.70E+20","90E-6","0.23"));
+ MatherialList.push_back(SMatherialParam("Стекло ГЛС32","3.2E-20","1.587","2E-3","2.00E+20","289E-6","0.67"));
+ MatherialList.push_back(SMatherialParam("Стекло ГЛС34","3.2E-20","1.587","2E-3","5.60E+20","180E-6","0.40"));
+ MatherialList.push_back(SMatherialParam("Стекло ГЛС9","1.1E-20","1.516","2E-3","4.56E+20","430E-6","0.58"));
+
+ size_t size=MatherialList.size();
+ for(size_t n=0;n<size;n++) ((CComboBox*)GetDlgItem(IDC_COMBO_MAIN_MATHERIAL))->AddString(MatherialList[n].Name.c_str());
  ((CComboBox*)GetDlgItem(IDC_COMBO_MAIN_MATHERIAL))->SetCurSel(0);
- 
- MatherialList.push_back(SMatherialParam("8.8E-19","1.81633","5E-3","5E+19","2.5E-4","0.59"));
- MatherialList.push_back(SMatherialParam("1.7E-20","1.521","2E-3","1.9E+20","390E-6","0.78"));
- MatherialList.push_back(SMatherialParam("2.0E-20","1.528","2E-3","4.68E+20","500E-6","0.45"));
- MatherialList.push_back(SMatherialParam("2.3E-20","1.538","2E-3","1.75E+20","410E-6","0.57"));
- MatherialList.push_back(SMatherialParam("1.0E-20","1.542","2E-3","1.96E+20","600E-6","0.75"));
- MatherialList.push_back(SMatherialParam("1.1E-20","1.542","2E-3","3.05E+20","490E-6","0.61"));
- MatherialList.push_back(SMatherialParam("1.1E-20","1.548","2E-3","5.16E+20","320E-6","0.37"));
- MatherialList.push_back(SMatherialParam("3.8E-20","1.511","2E-3","3.5E+20","270E-6","0.70"));
- MatherialList.push_back(SMatherialParam("3.8E-20","1.511","2E-3","5.0E+20","200E-6","0.50"));
- MatherialList.push_back(SMatherialParam("3.8E-20","1.511","2E-3","7.4E+20","170E-6","0.40"));
- MatherialList.push_back(SMatherialParam("3.8E-20","1.527","2E-3","2.0E+20","300E-6","0.70"));
 
  return(CDialog::OnInitDialog());
 }

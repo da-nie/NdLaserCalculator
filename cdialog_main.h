@@ -37,6 +37,7 @@ class CDialog_Main:public CDialog
   //параметры материала
   struct SMatherialParam
   {
+   std::string Name;//название материала
    std::string Sigma;//сечение стимулирующего излучения
    std::string N;//показатель преломления
    std::string Alpha;//коэффициент затухания
@@ -44,8 +45,9 @@ class CDialog_Main:public CDialog
    std::string Tau;//время затухания люминесценценции
    std::string Npq;//квантовый выход люминесценценции
  
-   SMatherialParam(const std::string &sigma,const std::string &n,const std::string &alpha,const std::string &nd,const std::string &tau,const std::string &npq)
+   SMatherialParam(const std::string &name,const std::string &sigma,const std::string &n,const std::string &alpha,const std::string &nd,const std::string &tau,const std::string &npq)
    {
+    Name=name;
     Sigma=sigma;
     N=n;
     Alpha=alpha;
