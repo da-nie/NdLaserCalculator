@@ -25,6 +25,7 @@
 BEGIN_MESSAGE_MAP(CDialog_Main,CDialog)
  ON_WM_DESTROY()
  ON_COMMAND(IDC_BUTTON_MAIN_CALCULATE,OnButton_Calculate)
+ ON_COMMAND(IDC_BUTTON_MAIN_CALCULATE_FLASH,OnButton_CalculateFlash)
  ON_COMMAND(IDC_BUTTON_MAIN_APPLY,OnButton_Apply)
 END_MESSAGE_MAP()
 
@@ -93,8 +94,14 @@ afx_msg BOOL CDialog_Main::OnInitDialog(void)
 
  ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_FLASH_C))->SetWindowText("2000");
  ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_FLASH_L))->SetWindowText("230");
+ ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_FLASH_U))->SetWindowText("1000");
+ ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_FLASH_LENGTH))->SetWindowText("80");
+ ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_FLASH_DIAMETR))->SetWindowText("10");
 
- ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_LAMP_FLASH_TIME))->SetWindowText("-");
+ ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_FLASH_T))->SetWindowText("-");
+ ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_FLASH_E))->SetWindowText("-");
+ ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_FLASH_BETA))->SetWindowText("-");
+
  ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_W_BORDER))->SetWindowText("-");
  ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_W_LAMP_BORDER))->SetWindowText("-");
 
@@ -122,7 +129,13 @@ afx_msg BOOL CDialog_Main::OnInitDialog(void)
  ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_LAMP_NA))->SetLimitText(100);
  ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_FLASH_C))->SetLimitText(100);
  ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_FLASH_L))->SetLimitText(100);
-   
+ ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_FLASH_U))->SetLimitText(100);
+ ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_FLASH_LENGTH))->SetLimitText(100);
+ ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_FLASH_DIAMETR))->SetLimitText(100);
+ ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_FLASH_T))->SetLimitText(100);
+ ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_FLASH_E))->SetLimitText(100);
+ ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_FLASH_BETA))->SetLimitText(100);
+    
  MatherialList.push_back(SMatherialParam("Кристалл Nd:YAG","8.8E-19","1.81633","5E-3","5E+19","2.5E-4","0.59"));
  MatherialList.push_back(SMatherialParam("Стекло ГЛС1","1.7E-20","1.521","2E-3","1.9E+20","390E-6","0.78"));
  MatherialList.push_back(SMatherialParam("Стекло ГЛС19","2.0E-20","1.528","2E-3","4.68E+20","500E-6","0.45"));
@@ -206,15 +219,6 @@ afx_msg void CDialog_Main::OnButton_Calculate(void)
  double Nt=atof(str);//эффективность передачи
  ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_LAMP_NA))->GetWindowText(str,MAX_STRING_LENGTH); 
  double Na=atof(str);//эффективность по поглощению
-
- ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_FLASH_C))->GetWindowText(str,MAX_STRING_LENGTH); 
- double lamp_c=atof(str);//ёмкость накопительной батареи
- ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_FLASH_L))->GetWindowText(str,MAX_STRING_LENGTH); 
- double lamp_l=atof(str);//индуктивность разрядного контура
-
- if (lamp_c<0) lamp_c=0;
- if (lamp_l<0) lamp_l=0;
- double flash_time=2*1E-6*sqrt(lamp_c*lamp_l);
  
  double h=6.6E-34;//постоянная Планка
  double lambda=1064E-9;//длина волны излучения, м
@@ -264,10 +268,44 @@ afx_msg void CDialog_Main::OnButton_Calculate(void)
  ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_W_BORDER))->SetWindowText(str);
  sprintf(str,"%g",wf);
  ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_W_LAMP_BORDER))->SetWindowText(str);
- sprintf(str,"%g",flash_time);
- ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_LAMP_FLASH_TIME))->SetWindowText(str);
-
 }
+//----------------------------------------------------------------------------------------------------
+//нажата кнопка "рассчитать параметры вспышки"
+//----------------------------------------------------------------------------------------------------
+afx_msg void CDialog_Main::OnButton_CalculateFlash(void)
+{
+ static const size_t MAX_STRING_LENGTH=255;
+ char str[255];
+
+ ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_FLASH_LENGTH))->GetWindowText(str,MAX_STRING_LENGTH); 
+ double flash_length=atof(str);//длина разрядного промежутка
+ ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_FLASH_DIAMETR))->GetWindowText(str,MAX_STRING_LENGTH); 
+ double flash_diametr=atof(str);//диаметр разрядного промежутка
+ ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_FLASH_U))->GetWindowText(str,MAX_STRING_LENGTH); 
+ double flash_u=atof(str);//напряжение батареи
+
+ ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_FLASH_C))->GetWindowText(str,MAX_STRING_LENGTH); 
+ double flash_c=atof(str);//ёмкость накопительной батареи
+ ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_FLASH_L))->GetWindowText(str,MAX_STRING_LENGTH); 
+ double flash_l=atof(str);//индуктивность разрядного контура
+
+ if (flash_c<0) flash_c=0;
+ if (flash_l<0) flash_l=0;
+ double flash_time=2*1E-6*sqrt(flash_c*flash_l);//время вспышки
+
+ double k0=1.3*flash_length/flash_diametr;
+ double z0=sqrt(flash_l/flash_c);
+ double beta=k0/(sqrt(flash_u*z0));
+ double e=flash_c*flash_u*flash_u/(2E6);
+
+ sprintf(str,"%g",flash_time);
+ ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_FLASH_T))->SetWindowText(str);
+ sprintf(str,"%g",beta);
+ ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_FLASH_BETA))->SetWindowText(str);
+ sprintf(str,"%g",e);
+ ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_FLASH_E))->SetWindowText(str);
+}
+
 //----------------------------------------------------------------------------------------------------
 //нажата кнопка "применить"
 //----------------------------------------------------------------------------------------------------

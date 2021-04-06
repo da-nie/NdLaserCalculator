@@ -77,6 +77,7 @@ class CDialog_Main:public CDialog
   afx_msg BOOL OnInitDialog(void);
   afx_msg void OnDestroy(void);
   afx_msg void OnButton_Calculate(void);//нажата кнопка "рассчитать"
+  afx_msg void OnButton_CalculateFlash(void);//нажата кнопка "рассчитать параметры вспышки"
   afx_msg void OnButton_Apply(void);//нажата кнопка "применить"
 };
 
