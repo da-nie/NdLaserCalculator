@@ -87,6 +87,8 @@ afx_msg BOOL CDialog_Main::OnInitDialog(void)
  ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_AE_R))->SetWindowText("0.05");
  ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_LAMP_TAU))->SetWindowText("1E-3");
  ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_AE_NPQ))->SetWindowText("0.37");
+ ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_AE_N2))->SetWindowText("1.8e+015");
+ ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_AE_LAMBDA))->SetWindowText("1063E-9");
 
  ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_LAMP_NR))->SetWindowText("0.43"); 
  ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_LAMP_NT))->SetWindowText("0.82"); 
@@ -124,6 +126,8 @@ afx_msg BOOL CDialog_Main::OnInitDialog(void)
  ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_AE_R))->SetLimitText(100);
  ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_LAMP_TAU))->SetLimitText(100);
  ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_AE_NPQ))->SetLimitText(100);
+ ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_AE_LAMBDA))->SetLimitText(100);
+ ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_AE_N2))->SetLimitText(100);
  ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_LAMP_NR))->SetLimitText(100);
  ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_LAMP_NT))->SetLimitText(100);
  ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_LAMP_NA))->SetLimitText(100);
@@ -136,33 +140,47 @@ afx_msg BOOL CDialog_Main::OnInitDialog(void)
  ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_FLASH_E))->SetLimitText(100);
  ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_FLASH_BETA))->SetLimitText(100);
     
- MatherialList.push_back(SMatherialParam("Кристалл Nd:YAG","8.8E-19","1.81633","5E-3","5E+19","2.5E-4","0.59"));
- MatherialList.push_back(SMatherialParam("Стекло ГЛС1","1.7E-20","1.521","2E-3","1.9E+20","390E-6","0.78"));
- MatherialList.push_back(SMatherialParam("Стекло ГЛС19","2.0E-20","1.528","2E-3","4.68E+20","500E-6","0.45"));
- MatherialList.push_back(SMatherialParam("Стекло ЛГС61","2.3E-20","1.538","2E-3","1.75E+20","410E-6","0.57"));
- MatherialList.push_back(SMatherialParam("Стекло ГЛС6","1.0E-20","1.542","2E-3","1.96E+20","600E-6","0.75"));
- MatherialList.push_back(SMatherialParam("Стекло ГЛС7","1.1E-20","1.542","2E-3","3.05E+20","490E-6","0.61"));
- MatherialList.push_back(SMatherialParam("Стекло ГЛС8","1.1E-20","1.548","2E-3","5.16E+20","320E-6","0.37"));
- MatherialList.push_back(SMatherialParam("Стекло ЛФС4 (Nd=3.5E+20)","3.8E-20","1.511","2E-3","3.5E+20","270E-6","0.70"));
- MatherialList.push_back(SMatherialParam("Стекло ЛФС4 (Nd=5.0E+20)","3.8E-20","1.511","2E-3","5.0E+20","200E-6","0.50"));
- MatherialList.push_back(SMatherialParam("Стекло ЛФС4 (Nd=7.4E+20)","3.8E-20","1.511","2E-3","7.4E+20","170E-6","0.40"));
- MatherialList.push_back(SMatherialParam("Стекло ЛФС5","3.8E-20","1.527","2E-3","2.0E+20","300E-6","0.70"));
+ MatherialList.push_back(SMatherialParam("Кристалл рубина","2.5E-20","1.76547","0.4","1.62E+19","3E-3","0.65","694.3E-9","1.62E+19"));
+ MatherialList.push_back(SMatherialParam("Кристалл Nd:YAG","8.8E-19","1.81633","5E-3","5E+19","2.5E-4","0.59","1064E-9","1.8E+15"));
 
- MatherialList.push_back(SMatherialParam("Стекло ГЛС21","3.2E-20","1.582","2E-3","1.40E+20","280E-6","0.73"));
- MatherialList.push_back(SMatherialParam("Стекло ГЛС22","3.2E-20","1.582","2E-3","2.0E+20","300E-6","0.74"));
- MatherialList.push_back(SMatherialParam("Стекло ГЛС23","3.2E-20","1.582","2E-3","3.60E+20","240E-6","0.6"));
- MatherialList.push_back(SMatherialParam("Стекло ГЛС24","3.2E-20","1.582","2E-3","5.70E+20","190E-6","0.44"));
- MatherialList.push_back(SMatherialParam("Стекло ГЛС25","3.0E-20","1.568","2E-3","2.33E+20","250E-6","0.64"));
- MatherialList.push_back(SMatherialParam("Стекло ГЛС26","3.0E-20","1.564","2E-3","2.30E+20","250E-6","0.64"));
- MatherialList.push_back(SMatherialParam("Стекло ГЛС27","3.0E-20","1.568","2E-3","12.70E+20","90E-6","0.23"));
- MatherialList.push_back(SMatherialParam("Стекло ГЛС32","3.2E-20","1.587","2E-3","2.00E+20","289E-6","0.67"));
- MatherialList.push_back(SMatherialParam("Стекло ГЛС34","3.2E-20","1.587","2E-3","5.60E+20","180E-6","0.40"));
- MatherialList.push_back(SMatherialParam("Стекло ГЛС9","1.1E-20","1.516","2E-3","4.56E+20","430E-6","0.58"));
+ MatherialList.push_back(SMatherialParam("Стекло ГЛС1","1.7E-20","1.521","2E-3","1.9E+20","390E-6","0.78","1064E-9",""));
+ MatherialList.push_back(SMatherialParam("Стекло ГЛС19","2.0E-20","1.528","2E-3","4.68E+20","500E-6","0.45","1064E-9",""));
+ MatherialList.push_back(SMatherialParam("Стекло ЛГС61","2.3E-20","1.538","2E-3","1.75E+20","410E-6","0.57","1064E-9",""));
+ MatherialList.push_back(SMatherialParam("Стекло ГЛС6","1.0E-20","1.542","2E-3","1.96E+20","600E-6","0.75","1064E-9",""));
+ MatherialList.push_back(SMatherialParam("Стекло ГЛС7","1.1E-20","1.542","2E-3","3.05E+20","490E-6","0.61","1064E-9",""));
+ MatherialList.push_back(SMatherialParam("Стекло ГЛС8","1.1E-20","1.548","2E-3","5.16E+20","320E-6","0.37","1064E-9",""));
+ MatherialList.push_back(SMatherialParam("Стекло ЛФС4 (Nd=3.5E+20)","3.8E-20","1.511","2E-3","3.5E+20","270E-6","0.70","1064E-9",""));
+ MatherialList.push_back(SMatherialParam("Стекло ЛФС4 (Nd=5.0E+20)","3.8E-20","1.511","2E-3","5.0E+20","200E-6","0.50","1064E-9",""));
+ MatherialList.push_back(SMatherialParam("Стекло ЛФС4 (Nd=7.4E+20)","3.8E-20","1.511","2E-3","7.4E+20","170E-6","0.40","1064E-9",""));
+ MatherialList.push_back(SMatherialParam("Стекло ЛФС5","3.8E-20","1.527","2E-3","2.0E+20","300E-6","0.70","1064E-9",""));
+
+ MatherialList.push_back(SMatherialParam("Стекло ГЛС21","3.2E-20","1.582","2E-3","1.40E+20","280E-6","0.73","1064E-9",""));
+ MatherialList.push_back(SMatherialParam("Стекло ГЛС22","3.2E-20","1.582","2E-3","2.0E+20","300E-6","0.74","1064E-9",""));
+ MatherialList.push_back(SMatherialParam("Стекло ГЛС23","3.2E-20","1.582","2E-3","3.60E+20","240E-6","0.6","1064E-9",""));
+ MatherialList.push_back(SMatherialParam("Стекло ГЛС24","3.2E-20","1.582","2E-3","5.70E+20","190E-6","0.44","1064E-9",""));
+ MatherialList.push_back(SMatherialParam("Стекло ГЛС25","3.0E-20","1.568","2E-3","2.33E+20","250E-6","0.64","1064E-9",""));
+ MatherialList.push_back(SMatherialParam("Стекло ГЛС26","3.0E-20","1.564","2E-3","2.30E+20","250E-6","0.64","1064E-9",""));
+ MatherialList.push_back(SMatherialParam("Стекло ГЛС27","3.0E-20","1.568","2E-3","12.70E+20","90E-6","0.23","1064E-9",""));
+ MatherialList.push_back(SMatherialParam("Стекло ГЛС32","3.2E-20","1.587","2E-3","2.00E+20","289E-6","0.67","1064E-9",""));
+ MatherialList.push_back(SMatherialParam("Стекло ГЛС34","3.2E-20","1.587","2E-3","5.60E+20","180E-6","0.40","1064E-9",""));
+ MatherialList.push_back(SMatherialParam("Стекло ГЛС9","1.1E-20","1.516","2E-3","4.56E+20","430E-6","0.58","1064E-9",""));
 
  size_t size=MatherialList.size();
- for(size_t n=0;n<size;n++) ((CComboBox*)GetDlgItem(IDC_COMBO_MAIN_MATHERIAL))->AddString(MatherialList[n].Name.c_str());
+ for(size_t n=0;n<size;n++) 
+ {
+  ((CComboBox*)GetDlgItem(IDC_COMBO_MAIN_MATHERIAL))->AddString(MatherialList[n].Name.c_str());
+  if (n==0) continue;//рубин - особый случай
+  //посчитаем населённость нижнего лазерного уровня  
+  static const size_t MAX_STRING_LENGTH=255;
+  char str[MAX_STRING_LENGTH];
+  double nd=atof(MatherialList[n].Nd.c_str());//концентрация ионов
+  double n2yag=1.8E+15;//населённость уровня N2 для концентрации 5e+19 в см^3 в YAG
+  double nndyag=5E+19; 
+  double n2=n2yag*(nd/nndyag);//населённость уровня N2
+  sprintf(str,"%g",n2);
+  MatherialList[n].N2=str;  
+ }
  ((CComboBox*)GetDlgItem(IDC_COMBO_MAIN_MATHERIAL))->SetCurSel(0);
-
  return(CDialog::OnInitDialog());
 }
 //----------------------------------------------------------------------------------------------------
@@ -184,7 +202,7 @@ afx_msg void CDialog_Main::OnButton_Calculate(void)
 {
  static const size_t MAX_STRING_LENGTH=255;
  static const double PI=3.1415926535897932384626433832795;
- char str[255];
+ char str[MAX_STRING_LENGTH];
  //получаем параметры
  ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_AE_LENGTH))->GetWindowText(str,MAX_STRING_LENGTH);
  double la=atof(str);//длина АЭ
@@ -197,7 +215,7 @@ afx_msg void CDialog_Main::OnButton_Calculate(void)
  ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_AE_ALPHA))->GetWindowText(str,MAX_STRING_LENGTH);
  double alphaa=atof(str);//коэффициент поглощения АЭ
  ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_AE_ND))->GetWindowText(str,MAX_STRING_LENGTH);
- double nd=atof(str);//концентрация ионов неодима
+ double nd=atof(str);//концентрация ионов
  ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_AE_TAU))->GetWindowText(str,MAX_STRING_LENGTH);
  double ta=atof(str);//время затухания люминесценции в АЭ
  ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_RA))->GetWindowText(str,MAX_STRING_LENGTH);
@@ -208,6 +226,11 @@ afx_msg void CDialog_Main::OnButton_Calculate(void)
  double l=atof(str);//расстояние между зеркалами
 ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_AE_R))->GetWindowText(str,MAX_STRING_LENGTH);
  double ra=atof(str);//коэффициент отражения АЭ
+((CEdit*)GetDlgItem(IDC_EDIT_MAIN_AE_LAMBDA))->GetWindowText(str,MAX_STRING_LENGTH);
+ double lambda=atof(str);//длина волны излучения
+((CEdit*)GetDlgItem(IDC_EDIT_MAIN_AE_N2))->GetWindowText(str,MAX_STRING_LENGTH);
+ double n2=atof(str);//населённость нижнего лазерного уровня
+
  ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_LAMP_TAU))->GetWindowText(str,MAX_STRING_LENGTH);
  double ti=atof(str);//время импульса лампы
  ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_AE_NPQ))->GetWindowText(str,MAX_STRING_LENGTH); 
@@ -221,7 +244,6 @@ afx_msg void CDialog_Main::OnButton_Calculate(void)
  double Na=atof(str);//эффективность по поглощению
  
  double h=6.6E-34;//постоянная Планка
- double lambda=1064E-9;//длина волны излучения, м
  double c=3E+8;//скорость света, м/с
 
  double f=c/lambda;//частота излучения
@@ -231,11 +253,7 @@ afx_msg void CDialog_Main::OnButton_Calculate(void)
  double l0=l+(na-1)*la;//оптическая длина пути
  double tae=exp(-alphaa*la)*(1-ra)*(1-ra);//пропускание АЭ
  double kp=1/(2*l0)*(LN(1/(r1*r2))+2*LN(1/tae));//усреднённый коэффициент полных потерь в резонаторе
- 
- double n2yag=1.8E+15;//населённость уровня N2 для концентрации 5e+19 в см^3 в YAG
- double nndyag=5E+19; 
- double n2=n2yag*(nd/nndyag);//населённость уровня N2
- 
+
  double fti=(ti/ta)/(1-exp(-ti/ta));//фактор накачки уровня
  double wkr=fti*va*e*n2;
  double g=1;//нормированная функция распределения коэффициента усиления активной среды по спектру
@@ -320,6 +338,8 @@ afx_msg void CDialog_Main::OnButton_Apply(void)
  ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_AE_ND))->SetWindowText(sMatherialParam.Nd.c_str());
  ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_AE_TAU))->SetWindowText(sMatherialParam.Tau.c_str());
  ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_AE_NPQ))->SetWindowText(sMatherialParam.Npq.c_str());
+ ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_AE_LAMBDA))->SetWindowText(sMatherialParam.Lambda.c_str());
+ ((CEdit*)GetDlgItem(IDC_EDIT_MAIN_AE_N2))->SetWindowText(sMatherialParam.N2.c_str());
 }
 //****************************************************************************************************
 //открытые функции

@@ -41,11 +41,13 @@ class CDialog_Main:public CDialog
    std::string Sigma;//сечение стимулирующего излучения
    std::string N;//показатель преломления
    std::string Alpha;//коэффициент затухания
-   std::string Nd;//концентрация ионов неодима
+   std::string Nd;//концентрация ионов
    std::string Tau;//время затухания люминесценценции
    std::string Npq;//квантовый выход люминесценценции
- 
-   SMatherialParam(const std::string &name,const std::string &sigma,const std::string &n,const std::string &alpha,const std::string &nd,const std::string &tau,const std::string &npq)
+   std::string Lambda;//длина волны излучения
+   std::string N2;//населённость нижнего лазерного уровня
+    
+   SMatherialParam(const std::string &name,const std::string &sigma,const std::string &n,const std::string &alpha,const std::string &nd,const std::string &tau,const std::string &npq,const std::string &lambda,const std::string &n2)
    {
     Name=name;
     Sigma=sigma;
@@ -54,6 +56,8 @@ class CDialog_Main:public CDialog
     Nd=nd;
     Tau=tau;
 	Npq=npq;
+	Lambda=lambda;
+	N2=n2;
    }
   };
   //-константы------------------------------------------------------------------------------------------
